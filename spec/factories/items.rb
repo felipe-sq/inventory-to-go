@@ -1,9 +1,8 @@
-require 'faker'
-
 FactoryGirl.define do
   factory :item do
-    name Faker::Commerce.product_name
-    description Faker::Lorem.sentence
-    amount Faker::Number.between(0, 20)
+    name "MyString"
+    description "MyText"
+    amount 1
+    reviewed false
   end
 end
