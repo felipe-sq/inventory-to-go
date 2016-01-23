@@ -34,10 +34,11 @@ class DepartmentsController < ApplicationController
     else
       render json: { error: "Department could not be deleted. Please try again." }, status: 400
     end
-    #render nothing: true, status: 204
   end
 
   def show
+    @department = Department.find(params[:id])
+    render json: @department.to_json, status: 200
   end
 
   private

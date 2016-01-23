@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe DepartmentsController, type: :controller do
   let!(:department_1) { FactoryGirl.create(:department) }
   let(:result) { JSON.parse(response.body) }
+
   describe 'index' do
     before { get :index }
 
@@ -25,11 +26,10 @@ RSpec.describe DepartmentsController, type: :controller do
     end
   end
 
-
   describe 'POST create' do
     before do
       @new_department = build(:department)
-      post :create, department: {name: @new_department.name, description: @new_department.description}
+      post :create, department: { name: @new_department.name, description: @new_department.description }
     end
 
     it 'returns http success' do
@@ -50,6 +50,17 @@ RSpec.describe DepartmentsController, type: :controller do
   describe 'GET show' do
     before { get :show, id: department_1.id }
 
+    it 'returns http success' do
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'returns valid json' do
+      expect { result }.to_not raise_error
+    end
+
+    it 'returns department_1 serialized' do
+      expect(JSON.parse(response.body)).to eq result
+    end
   end
 
   describe 'PUT update' do
@@ -89,5 +100,4 @@ RSpec.describe DepartmentsController, type: :controller do
       expect(dept_2.reload).to_not be_nil
     end
   end
-
 end
