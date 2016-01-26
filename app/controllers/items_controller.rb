@@ -10,8 +10,7 @@ class ItemsController < ApplicationController
     @department = Department.find(params[:department_id])
     @item = @department.items.build(item_params)
 
-    if @item.valid?
-      @item.save!
+    if @item.save
       render json: @item.to_json, status: 201
     else
       render json: { error: 'Item is invalid. Please try again.' }, status: 400
