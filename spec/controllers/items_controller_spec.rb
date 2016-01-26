@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe ItemsController, type: :controller do
-  let!(:item1) { FactoryGirl.create(:item, department: department) }
+  let!(:item1) { FactoryGirl.create(:item, department: department1) }
   let(:result) { JSON.parse(response.body) }
-  let(:department) { FactoryGirl.create(:department) }
+  let(:department1) { FactoryGirl.create(:department) }
 
   describe 'GET #index' do
     let!(:item_from_other_dept) {FactoryGirl.create(:item) }
     before do
-      get :index, department_id: department.id
+      get :index, department_id: department1.id, item_id: item1.id
     end
 
     it 'responds succesfully' do
@@ -34,7 +34,7 @@ RSpec.describe ItemsController, type: :controller do
     it 'only returns items from the specified department' do
       item_1_result = result.detect { |x| x['id'] == item1.id }
       expect(item_1_result).to be_present
-      expect(item_from_other_dept.department_id).to_not eq(item1.department_id)
+      expect(item_1_result).not_to include(item_from_other_dept)
     end
   end
 

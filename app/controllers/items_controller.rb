@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
 
   def index
-    @items = Item.all
+    @department = Department.find_by(params[:id])
+    @items = @department.items
     render json: @items.to_json, status: 200
   end
 
