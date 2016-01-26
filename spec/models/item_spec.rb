@@ -12,7 +12,7 @@ end
 #  name          :string
 #  description   :text
 #  amount        :integer
-#  reviewed      :boolean
+#  reviewed      :boolean          default(FALSE)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  department_id :integer

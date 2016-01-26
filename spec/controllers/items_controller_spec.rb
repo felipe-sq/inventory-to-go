@@ -23,7 +23,7 @@ RSpec.describe ItemsController, type: :controller do
       expect(result).to be_an(Array)
     end
 
-    it 'includes all item attributes' do
+    it 'includes all item attributes for the index action' do
       item_1_result = result.detect { |x| x['id'] == item1.id }
       expect(item_1_result['name']).to eq(item1.name)
       expect(item_1_result['description']).to eq(item1.description)
@@ -39,9 +39,25 @@ RSpec.describe ItemsController, type: :controller do
   end
 
   describe 'GET #create' do
+    before do
+      @new_item = build(:item)
+      post :create, department_id: department.id, item: {name: @new_item.name, description: @new_item.description, amount: @new_item.amount}
+    end
+
     it 'returns http success' do
-      get :create
       expect(response).to have_http_status(:success)
+    end
+
+    it 'returns valid json' do
+      expect { JSON.parse(response.body) }.to_not raise_error
+    end
+
+    it 'creates an item with the correct attributes' do
+      hashed_json = JSON.parse(response.body)
+      expect(@new_item.name).to eq(hashed_json['name'])
+      expect(@new_item.description).to eq(hashed_json['description'])
+      expect(@new_item.amount).to eq(hashed_json['amount'])
+      expect(@new_item.reviewed).to eq(hashed_json['reviewed'])
     end
   end
 
