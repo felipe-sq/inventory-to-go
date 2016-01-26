@@ -6,7 +6,7 @@ RSpec.describe ItemsController, type: :controller do
   let(:department1) { FactoryGirl.create(:department) }
 
   describe 'GET #index' do
-    let!(:item_from_other_dept) {FactoryGirl.create(:item) }
+    let!(:item_from_other_dept) { FactoryGirl.create(:item) }
     before do
       get :index, department_id: department1.id, item_id: item1.id
     end
@@ -41,7 +41,7 @@ RSpec.describe ItemsController, type: :controller do
   describe 'GET #create' do
     before do
       @new_item = build(:item)
-      post :create, department_id: department.id, item: {name: @new_item.name, description: @new_item.description, amount: @new_item.amount}
+      post :create, department_id: department.id, item: { name: @new_item.name, description: @new_item.description, amount: @new_item.amount }
     end
 
     it 'returns http success' do
