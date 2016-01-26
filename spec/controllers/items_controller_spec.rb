@@ -54,10 +54,10 @@ RSpec.describe ItemsController, type: :controller do
 
     it 'creates an item with the correct attributes' do
       hashed_json = JSON.parse(response.body)
-      expect(@new_item.name).to eq(hashed_json['name'])
-      expect(@new_item.description).to eq(hashed_json['description'])
-      expect(@new_item.amount).to eq(hashed_json['amount'])
-      expect(@new_item.reviewed).to eq(hashed_json['reviewed'])
+      expect(hashed_json['name']).to eq(@new_item.name)
+      expect(hashed_json['description']).to eq(@new_item.description)
+      expect(hashed_json['amount']).to eq(@new_item.amount)
+      expect(hashed_json['reviewed']).to eq(@new_item.reviewed)
     end
   end
 
