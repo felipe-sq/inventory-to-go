@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   resources :departments do
-    resources :items
+    resources :items, only: [:index, :create, :update, :destroy]
   end
 end
