@@ -9,7 +9,7 @@ class DepartmentsController < ApplicationController
     @department = Department.new(department_params)
 
     if @department.valid?
-      @department.save!
+      @department.save
       render json: @department.to_json, status: 201
     else
       render json: { error: "Department is invalid" }, status: 400
