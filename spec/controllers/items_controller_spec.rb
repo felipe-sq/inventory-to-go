@@ -41,7 +41,7 @@ RSpec.describe ItemsController, type: :controller do
   describe 'GET #create' do
     before do
       @new_item = build(:item)
-      post :create, department_id: department.id, item: { name: @new_item.name, description: @new_item.description, amount: @new_item.amount }
+      post :create, department_id: department1.id, item: { name: @new_item.name, description: @new_item.description, amount: @new_item.amount }
     end
 
     it 'returns http success' do
@@ -61,14 +61,29 @@ RSpec.describe ItemsController, type: :controller do
     end
   end
 
-  describe 'GET #update' do
+  describe 'PUT #update' do
+    before do
+      put :update, department_id: department1.id, id: item1.id, item: { name: item1.name, description: item1.description, amount: item1.amount, reviewed: item1.reviewed }
+    end
+
     it 'returns http success' do
-      get :update
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(200)
+    end
+
+    it 'returns valid json' do
+      expect { result }.to_not raise_error
+    end
+
+    it 'updates a department with the correct attributes' do
+      hashed_json = JSON.parse(response.body)
+      expect(item1.name).to eq hashed_json['name']
+      expect(item1.description).to eq hashed_json['description']
+      expect(item1.amount).to eq hashed_json['amount']
+      expect(item1.reviewed).to eq hashed_json['reviewed']
     end
   end
 
-  describe 'GET #destroy' do
+  describe 'PUT #destroy' do
     it 'returns http success' do
       get :destroy
       expect(response).to have_http_status(:success)

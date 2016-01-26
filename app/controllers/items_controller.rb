@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   def index
-    @department = Department.find_by(params[:id])
+    @department = Department.find(params[:department_id])
     @items = @department.items
     render json: @items.to_json, status: 200
   end
@@ -18,6 +18,14 @@ class ItemsController < ApplicationController
   end
 
   def update
+    @item = Item.find(params[:id])
+    @item.update_attributes(item_params)
+
+    if @item.save
+      render json: @item.to_json, status: 200
+    else
+      render json: { error: "Item update failed. Please try again." }, status: 400
+    end
   end
 
   def destroy
@@ -26,6 +34,6 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :amount)
+    params.require(:item).permit(:name, :description, :amount, :reviewed)
   end
 end

@@ -84,7 +84,7 @@ RSpec.describe DepartmentsController, type: :controller do
 
   describe 'DELETE destroy' do
     let(:delete_dept) { delete :destroy, id: department_1.id }
-    let!(:dept_2) { FactoryGirl.create(:department) }
+    let(:dept_2) { FactoryGirl.create(:department) }
 
     it 'returns no content' do
       delete_dept
