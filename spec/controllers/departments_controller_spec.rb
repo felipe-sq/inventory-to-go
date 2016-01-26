@@ -42,8 +42,8 @@ RSpec.describe DepartmentsController, type: :controller do
 
     it 'creates a department with the correct attributes' do
       hashed_json = JSON.parse(response.body)
-      expect(@new_department.name).to eq hashed_json['name']
-      expect(@new_department.description).to eq hashed_json['description']
+      expect(hashed_json['name']).to eq(@new_department.name)
+      expect(hashed_json['description']).to eq(@new_department.description)
     end
   end
 
