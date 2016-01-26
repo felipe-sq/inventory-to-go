@@ -29,6 +29,13 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+    @item = Item.find(params[:id])
+
+    if @item.delete
+      render json: @item.to_json, status: 201
+    else
+      render json: { error: "Item could not be deleted. Please try again." }, status: 400
+    end
   end
 
   private

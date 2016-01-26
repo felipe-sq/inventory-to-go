@@ -83,10 +83,22 @@ RSpec.describe ItemsController, type: :controller do
     end
   end
 
-  describe 'PUT #destroy' do
-    it 'returns http success' do
-      get :destroy
+  describe 'DELETE #destroy' do
+    let(:delete_item) { delete :destroy, department_id: department1.id, id: item1.id }
+    let(:item_2) { FactoryGirl.create(:item) }
+
+    it 'returns no content' do
+      delete_item
       expect(response).to have_http_status(:success)
+    end
+
+    it 'deletes item' do
+      expect { delete_item }.to change { Item.count }.by(-1)
+    end
+
+    it 'leaves other items alone' do
+      delete_item
+      expect(item_2.reload).to_not be_nil
     end
   end
 end
