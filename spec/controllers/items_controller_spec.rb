@@ -34,7 +34,10 @@ RSpec.describe ItemsController, type: :controller do
     it 'only returns items from the specified department' do
       item_1_result = result.detect { |x| x['id'] == item1.id }
       expect(item_1_result).to be_present
-      expect(item_1_result).not_to include(item_from_other_dept)
+
+      other_item = result.detect { |x| x['id'] == item_from_other_dept.id }
+      expect(other_item).to be_nil
+
     end
   end
 

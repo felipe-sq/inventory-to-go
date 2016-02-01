@@ -4,7 +4,6 @@ FactoryGirl.define do
   factory :department do
     name Faker::Commerce.department
     description Faker::Lorem.sentence
-    id 1
   end
 end
 

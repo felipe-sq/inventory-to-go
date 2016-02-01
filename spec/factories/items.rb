@@ -6,7 +6,7 @@ FactoryGirl.define do
     description Faker::Lorem.sentence
     amount Faker::Number.between(1, 25)
     reviewed false
-    department_id 1
+    department
   end
 end
 
