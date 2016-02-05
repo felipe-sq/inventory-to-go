@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126023951) do
+ActiveRecord::Schema.define(version: 20160205174842) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -24,10 +32,11 @@ ActiveRecord::Schema.define(version: 20160126023951) do
     t.string   "name"
     t.text     "description"
     t.integer  "amount"
-    t.boolean  "reviewed",      default: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.boolean  "reviewed",        default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "department_id"
+    t.integer  "min_stock_level", default: 0
   end
 
   add_index "items", ["department_id"], name: "index_items_on_department_id"

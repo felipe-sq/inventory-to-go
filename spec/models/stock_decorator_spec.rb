@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StockDecorator do
-  let(:item) { FactoryGirl.create(:item, amount: amount) }
+  let(:item) { FactoryGirl.create(:item, amount: amount, min_stock_level: 10) }
   let(:stock_decorator) { StockDecorator.new(item) }
 
   context 'normal stock' do
@@ -18,8 +18,10 @@ RSpec.describe StockDecorator do
   end
 
   context 'low stock' do
-    let(:amount) { 6 }
+    let(:amount) { 5 }
     it 'provides a stock level for low' do
+      puts item.amount
+      puts item.min_stock_level
       expect(stock_decorator.level).to eq('low')
     end
   end
