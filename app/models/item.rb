@@ -1,5 +1,9 @@
 class Item < ActiveRecord::Base
   belongs_to :department
+
+  def min_stock_level
+    10
+  end
 end
 
 # == Schema Information
